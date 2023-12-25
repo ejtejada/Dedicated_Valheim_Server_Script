@@ -210,40 +210,42 @@ echo "1"
 function valheim_server_steam_account_creation() {
 	# create steam account
 	# later add top variable for steam user because maybe somebody already has a steam account for something else?
-	echo "$START_INSTALL_1_PARA"
-	while true; 
-			  
-		do
-			tput setaf 2; echo "$DRAW60" ; tput setaf 9;
-			tput setaf 2; echo "$STEAM_NON_ROOT_STEAM_PASSWORD" ; tput setaf 9;
-			tput setaf 2; echo "$DRAW60" ; tput setaf 9;
-			tput setaf 1; echo "$STEAM_PASS_MUST_BE" ; tput setaf 9;
-			tput setaf 1; echo "$STEAM_PASS_MUST_BE_1" ; tput setaf 9;
-			tput setaf 2; echo "$DRAW60" ; tput setaf 9;
-			tput setaf 2; echo "$STEAM_GOOD_EXAMPLE" ; tput setaf 9;
-			tput setaf 1; echo "$STEAM_BAD_EXAMPLE" ; tput setaf 9;
-			tput setaf 2; echo "$DRAW60" ; tput setaf 9;
-			echo ""
-			read -p "$STEAM_PLEASE_ENTER_STEAM_PASSWORD" userpassword
-			tput setaf 2; echo "$DRAW60" ; tput setaf 9;
-			[[ ${#userpassword} -ge 6 && "$userpassword" == *[[:lower:]]* && "$userpassword" == *[[:upper:]]* && "$userpassword" =~ ^[[:alnum:]]+$ ]] && break
-			tput setaf 2; echo "$STEAM_PASS_NOT_ACCEPTED" ; tput setaf 9;
-			tput setaf 2; echo "$STEAM_PASS_NOT_ACCEPTED_1" ; tput setaf 9;
-		done
-		echo ""
+	#TODO I already have a steam user with sudo powers
+	#[FIXME] Give menu based option to say steam user already exists OR allow entry of custom username that has sudo powers 
+	#echo "$START_INSTALL_1_PARA"
+	#while true; 
+	#		  
+	#	do
+	#		tput setaf 2; echo "$DRAW60" ; tput setaf 9;
+	#		tput setaf 2; echo "$STEAM_NON_ROOT_STEAM_PASSWORD" ; tput setaf 9;
+	#		tput setaf 2; echo "$DRAW60" ; tput setaf 9;
+	#		tput setaf 1; echo "$STEAM_PASS_MUST_BE" ; tput setaf 9;
+	#		tput setaf 1; echo "$STEAM_PASS_MUST_BE_1" ; tput setaf 9;
+	#		tput setaf 2; echo "$DRAW60" ; tput setaf 9;
+	#		tput setaf 2; echo "$STEAM_GOOD_EXAMPLE" ; tput setaf 9;
+	#		tput setaf 1; echo "$STEAM_BAD_EXAMPLE" ; tput setaf 9;
+	#		tput setaf 2; echo "$DRAW60" ; tput setaf 9;
+	#		echo ""
+	#		read -p "$STEAM_PLEASE_ENTER_STEAM_PASSWORD" userpassword
+	#		tput setaf 2; echo "$DRAW60" ; tput setaf 9;
+	#		[[ ${#userpassword} -ge 6 && "$userpassword" == *[[:lower:]]* && "$userpassword" == *[[:upper:]]* && "$userpassword" =~ ^[[:alnum:]]+$ ]] && break
+	#		tput setaf 2; echo "$STEAM_PASS_NOT_ACCEPTED" ; tput setaf 9;
+	#		tput setaf 2; echo "$STEAM_PASS_NOT_ACCEPTED_1" ; tput setaf 9;
+	#	done
+	#	echo ""
 	# Set the env bash profile information for steam user
-	tput setaf 1; echo "$INSTALL_BUILD_NON_ROOT_STEAM_ACCOUNT" ; tput setaf 9;
-			sleep 1
-			if command -v apt-get >/dev/null; then
-				useradd --create-home --shell /bin/bash --password $userpassword steam
-				cp /etc/skel/.bashrc /home/steam/.bashrc
-				cp /etc/skel/.profile /home/steam/.profile
-            elif command -v yum >/dev/null; then
-				useradd -mU -s /bin/bash -p $userpassword steam
+	#tput setaf 1; echo "$INSTALL_BUILD_NON_ROOT_STEAM_ACCOUNT" ; tput setaf 9;
+	#		sleep 1
+	#		if command -v apt-get >/dev/null; then
+	#			useradd --create-home --shell /bin/bash --password $userpassword steam
+	#			cp /etc/skel/.bashrc /home/steam/.bashrc
+	#			cp /etc/skel/.profile /home/steam/.profile
+    #        elif command -v yum >/dev/null; then
+	#			useradd -mU -s /bin/bash -p $userpassword steam
 				# All file from /etc/skel/ are auto copied on RH.
-			else
-				echo ""
-			fi		
+	#		else
+	#			echo ""
+	#		fi		
 		tput setaf 2; echo "$ECHO_DONE" ; tput setaf 9;
 }
 
