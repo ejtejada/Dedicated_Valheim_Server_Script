@@ -629,7 +629,7 @@ function linux_server_update() {
 	#        WTF is curl not installed by default... come on man!
     tput setaf 1; echo "$INSTALL_ADDITIONAL_FILES" ; tput setaf 9;
     if command -v apt-get >/dev/null; then
-        sudo apt install lib32gcc1-s1 libsdl2-2.0-0 libsdl2-2.0-0:i386 git mlocate net-tools unzip curl lsof -y
+        sudo apt install lib32gcc-s1 libsdl2-2.0-0 libsdl2-2.0-0:i386 git mlocate net-tools unzip curl lsof -y
     #elif command -v dnf >/dev/null; then
 	# Seams RH went to dnf as well in RHEL8
 	# Might use ID_LIKE="fedora" and VERSION_ID="7.9" instead? But this works.
