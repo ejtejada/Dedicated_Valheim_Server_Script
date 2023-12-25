@@ -416,7 +416,7 @@ function build_configuration_env_files_set_permissions(){
 		sleep 1
 		echo $worldname  >> /home/steam/worlds.txt
 		sleep 1
-		chown steam:steam /home/steam/*.txt
+		chown ubuntu:ubuntu /home/steam/*.txt
 		clear
 }
 
@@ -450,7 +450,7 @@ function valheim_server_install() {
 		fi
 		nocheck_valheim_update_install
 		tput setaf 1; echo "$INSTALL_BUILD_SET_STEAM_PERM" ; tput setaf 9;
-		chown steam:steam -Rf /home/steam/*
+		chown ubuntu:ubuntu -Rf /home/steam/*
 		tput setaf 2; echo "$ECHO_DONE" ; tput setaf 9;
 		sleep 1
 	
@@ -558,7 +558,7 @@ EOF
 		sleep 1
 		#chown steam user permissions to all of user steam dir location
 		tput setaf 1; echo "$INSTALL_BUILD_SET_STEAM_PERMS" ; tput setaf 9; 
-		chown steam:steam -Rf /home/steam/*
+		chown ubuntu:ubuntu -Rf /home/steam/*
 		tput setaf 2; echo "$ECHO_DONE" ; tput setaf 9;
 		sleep 1
 		# Reload daemons
@@ -912,7 +912,7 @@ function backup_world_data() {
         tput setaf 2; echo "$BACKUP_WORLD_RESTARTING_SERVICES_1" ; tput setaf 9;
 		echo ""
 		tput setaf 2; echo "$BACKUP_WORLD_SET_PERMS_FILES" ; tput setaf 9;
-		chown -Rf steam:steam ${backupPath}/${worldname}
+		chown -Rf ubuntu:ubuntu ${backupPath}/${worldname}
 		tput setaf 2; echo "$BACKUP_WORLD_PROCESS_COMPLETE" ; tput setaf 9;
 		echo ""
 	else 
@@ -969,7 +969,7 @@ $(ColorGreen ' '"$RESTORE_WORLD_DATA_CONFIRM_1"' ') "
 		#untar
         tput setaf 2; echo "$RESTORE_WORLD_DATA_UNPACKING ${worldpath}/${restorefile}" ; tput setaf 9;
         tar xzf ${worldpath}/${worldname}/${restorefile} --strip-components=7 --directory ${worldpath}/${worldname}/  
-		chown -Rf steam:steam ${worldpath}/${worldname}/
+		chown -Rf ubuntu:ubuntu ${worldpath}/${worldname}/
 		rm  ${worldpath}/${worldname}/*.tgz
         tput setaf 2; echo "$RESTORE_WORLD_DATA_STARTING_VALHEIM_SERVICES" ; tput setaf 9;
         tput setaf 2; echo "$RESTORE_WORLD_DATA_CUSS_LOKI" ; tput setaf 9;
@@ -1017,7 +1017,7 @@ $(ColorRed ''"$DRAW60"'')"
 	if [ "$confirmOfficialUpdates" == "y" ]; then
 		tput setaf 2; echo "$FUNCTION_INSTALL_VALHEIM_UPDATE_APPLY_INFO" ; tput setaf 9; 
 		$steamexe +login anonymous +force_install_dir ${valheimInstallPath}/${worldname} +app_update 896660 validate +exit
-		chown -R steam:steam ${valheimInstallPath}/${worldname}
+		chown -R ubuntu:ubuntu ${valheimInstallPath}/${worldname}
 		echo ""
 	else
 		echo "$FUNCTION_INSTALL_VALHEIM_UPDATES_CANCEL"
@@ -1801,7 +1801,7 @@ export LD_LIBRARY_PATH=\$templdpath
 EOF
 
     echo "$FUNCTION_WRITE_CONFIG_RESTART_SET_PERMS" ${valheimInstallPath}/${worldname}/start_valheim_${worldname}.sh
-    chown steam:steam ${valheimInstallPath}/${worldname}/start_valheim_${worldname}.sh
+    chown ubuntu:ubuntu ${valheimInstallPath}/${worldname}/start_valheim_${worldname}.sh
     chmod +x ${valheimInstallPath}/${worldname}/start_valheim_${worldname}.sh
     echo "$ECHO_DONE"
     echo "$FUNCTION_WRITE_CONFIG_RESTART_SERVICE_INFO"
@@ -2126,7 +2126,7 @@ function install_valheim_plus() {
     tput setaf 2; echo "$FUNCTION_VALHEIM_PLUS_INSTALL_BUILDING_NEW_BEPINEX_CONFIG" ; tput setaf 9; 
     build_start_server_bepinex_configuration_file
     tput setaf 2; echo "$FUNCTION_VALHEIM_PLUS_INSTALL_SETTING_STEAM_OWNERSHIP" ; tput setaf 9; 
-    chown steam:steam -Rf /home/steam/*
+    chown ubuntu:ubuntu -Rf /home/steam/*
     chmod +x start_server_bepinex.sh
     rm UnixServer.zip
     echo ""
@@ -2538,7 +2538,7 @@ clear
     tput setaf 2; echo "$FUNCTION_BEPINEX_INSTALL_BUILDING_NEW_BEPINEX_CONFIG" ; tput setaf 9; 
     build_valw_bepinex_configuration_file
     tput setaf 2; echo "$FUNCTION_BEPINEX_INSTALL_SETTING_STEAM_OWNERSHIP" ; tput setaf 9; 
-    chown steam:steam -Rf /home/steam/*
+    chown ubuntu:ubuntu -Rf /home/steam/*
     chmod +x start_valw_bepinex.sh
     echo ""
     tput setaf 2; echo "$FUNCTION_BEPINEX_INSTALL_GET_THEIR_VIKING_ON" ; tput setaf 9; 
@@ -2779,7 +2779,7 @@ function get_current_config_upgrade_menu() {
 	    #Check for worlds.txt that holds all the Worlds running on a server
         [ -f "$worldfilelist" ] || perl -n -e '/\-world "?([^"]+)"? \-password/ && print "$1\n"' /home/steam/valheimserver/start_valheim.sh > /home/steam/worlds.txt
 	    sleep 1
-	    chown steam:steam /home/steam/worlds.txt
+	    chown ubuntu:ubuntu /home/steam/worlds.txt
 		echo "Worlds.txt file created"
         setNewWorldNamePathing=$(cat /home/steam/worlds.txt)
 		echo "Rebuilding folder structure for Valheim installs"
@@ -2845,12 +2845,12 @@ WantedBy=multi-user.target
 EOF
 		echo "New Valheim Server Service File Created"
     	# Reset Permissions and Ownership to Steam DIR
-    	chown steam:steam /home/steam/worlds.txt
+    	chown ubuntu:ubuntu /home/steam/worlds.txt
 		echo "Moving ${worldname}.db and ${worldname}.fwl files to new location"
     	mkdir ${worldpath}/${worldname}
 		rsync -a --exclude ${worldname} ${worldpath}/ /${worldpath}/${worldname}
     	# Set steam permissions again for double check to everything within the /home/steam/ directory
-    	chown -Rf steam:steam /home/steam
+    	chown -Rf ubuntu:ubuntu /home/steam
     	# Reload daemon services to clear out old valheimserver.service
     	systemctl daemon-reload
     	sleep 1
@@ -2873,12 +2873,12 @@ if [[ $(find "${valheimInstallPath}/${worldname}/officialvalheimbuild" -mmin +59
       find "/home" "/root" -wholename "*/.steam/appcache/appinfo.vdf" | xargs -r rm -f --
       currentOfficialRepo=$($steamexe +login anonymous +app_info_update 1 +app_info_print 896660 +quit | grep -A10 branches | grep -A2 public | grep buildid | cut -d'"' -f4)
       echo $currentOfficialRepo > ${valheimInstallPath}/${worldname}/officialvalheimbuild
-      chown steam:steam ${valheimInstallPath}/${worldname}/officialvalheimbuild
+      chown ubuntu:ubuntu ${valheimInstallPath}/${worldname}/officialvalheimbuild
       echo $currentOfficialRepo
 elif [ ! -f ${valheimInstallPath}/${worldname}/officialvalheimbuild ]; then
       currentOfficialRepo=$($steamexe +login anonymous +app_info_update 1 +app_info_print 896660 +quit | grep -A10 branches | grep -A2 public | grep buildid | cut -d'"' -f4)
       echo $currentOfficialRepo > ${valheimInstallPath}/${worldname}/officialvalheimbuild
-      chown steam:steam ${valheimInstallPath}/${worldname}/officialvalheimbuild
+      chown ubuntu:ubuntu ${valheimInstallPath}/${worldname}/officialvalheimbuild
       echo $currentOfficialRepo
 elif [ -f ${valheimInstallPath}/${worldname}/officialvalheimbuild ]; then
       currentOfficialRepo=$(cat ${valheimInstallPath}/${worldname}/officialvalheimbuild)
